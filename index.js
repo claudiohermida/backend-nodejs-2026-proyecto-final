@@ -24,6 +24,10 @@ app.use((req, res, next) => {
 
 app.use("/api", authentication, rutasProductos);
 
+app.get("/", (req, res) => {
+  res.json({ status: "success", message: "Backend API is running" });
+});
+
 app.use((req, res, next) => {
   //console.log("test 2")
   res.status(404).json({
