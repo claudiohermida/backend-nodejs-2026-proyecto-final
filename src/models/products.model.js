@@ -58,8 +58,8 @@ export const getProductModel = async (id) => {
 
 export const createProductModel = async (productData) => {
   try {
-    const productsCount = (await getCountFromServer(productsCollection)).data()
-      .count;
+    // const productsCount = (await getCountFromServer(productsCollection)).data()
+    //  .count;
     const productDoc = doc(productsCollection, productData?.id);
 
     await setDoc(productDoc, productData);

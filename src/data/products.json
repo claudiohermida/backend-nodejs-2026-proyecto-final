@@ -1,5 +1,5 @@
 [
-  ,{
+  {
     "id": 1,
     "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
     "price": 109.95,
@@ -10,7 +10,7 @@
       "rate": 3.9,
       "count": 120
     }
-  }
+  },
   {
     "id": 2,
     "title": "Mens Casual Premium Slim Fit T-Shirts ",
