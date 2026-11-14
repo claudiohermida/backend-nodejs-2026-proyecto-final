@@ -2,8 +2,9 @@ import jwt from "jsonwebtoken";
 import "dotenv/config";
 
 export function authentication(req, res, next) {
-  const authorization = req.headers.authorization;
+  const authorization = req.headers["authorization"];
   const token = authorization?.match(/^Bearer\s+(\S+)$/i)?.[1];
+  // const token = req.headers["authorization"]?.split(" ")[1];
   if (!token) {
     return res.status(401).json({
       message: "Un JWT token de autorización válido es necesario",
