@@ -1,8 +1,8 @@
 import { generateToken } from "../utils/token-generator.js";
 const default_user = {
   id: 1,
-  email: "user@email.com",
-  password: "strongPass123",
+  email: "admin@gmail.com",
+  password: "123456",
 };
 
 export async function login(req, res) {
