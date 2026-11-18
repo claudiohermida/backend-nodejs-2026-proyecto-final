@@ -57,35 +57,34 @@ export async function getProduct(req, res) {
 
 export const createProduct = async (req, res) => {
   const { id, title, price, description, category, image, rating } = req.body;
-
-  // try {
-  const newProduct = await createProductService({
-    id,
-    title,
-    price,
-    description,
-    category,
-    image,
-    rating,
-  });
-  res.status(201).json(newProduct);
-  // } catch (error) {
-  //   console.error("Error al crear el producto:", error);
-  //   res.status(500).send({
-  //     message: "Error interno",
-  //   });
+  if (req.body) {
+    const newProduct = await createProductService({
+      id,
+      title,
+      price,
+      description,
+      category,
+      image,
+      rating,
+    });
+    res.status(201).json(newProduct);
+  } else {
+    res.status(400).send({
+      message: "el producto es necesario",
+    });
+  }
 };
 
 export const deleteProduct = async (req, res) => {
   const { id } = req.params;
-  // try {
-  await deleteProductService(id);
-  res.status(200).send({
-    message: "Producto eliminado",
-  });
-  // } catch (error) {
-  //   console.error("Error al eliminar el producto:", error);
-  //   res.status(500).send({
-  //     message: "Error interno",
-  //   });
+  if (id) {
+    await deleteProductService(id);
+    res.status(200).send({
+      message: `Producto ${id} eliminado`,
+    });
+  } else {
+    res.status(400).send({
+      message: "el id del producto es necesario",
+    });
+  }
 };
