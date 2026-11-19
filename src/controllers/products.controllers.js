@@ -29,7 +29,7 @@ export async function getAllProducts(req, res) {
 }
 
 export async function getProduct(req, res) {
-  const id = req.params.id;
+  const { id } = req.params;
   if (id) {
     // try {
     const product = await getProductService(id);
@@ -59,7 +59,7 @@ export const createProduct = async (req, res) => {
   const { id, title, price, description, category, image, rating } = req.body;
   if (req.body) {
     const newProduct = await createProductService({
-      id,
+      // id,
       title,
       price,
       description,
@@ -67,7 +67,7 @@ export const createProduct = async (req, res) => {
       image,
       rating,
     });
-    res.status(201).json(newProduct);
+    res.status(201).json(newProduct.id);
   } else {
     res.status(400).send({
       message: "el producto es necesario",

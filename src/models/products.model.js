@@ -60,7 +60,8 @@ export const createProductModel = async (productData) => {
   try {
     // const productsCount = (await getCountFromServer(productsCollection)).data()
     //  .count;
-    const productDoc = doc(productsCollection, productData?.id);
+    //const productDoc = doc(productsCollection, productData?.id);
+    const productDoc = doc(productsCollection);
 
     await setDoc(productDoc, productData);
     return {
@@ -76,15 +77,29 @@ export const createProductModel = async (productData) => {
 };
 
 export const deleteProductModel = async (id) => {
+  let productDoc;
+  let productSnapshot;
+
   try {
-    const productDoc = doc(productsCollection, id);
+    productDoc = doc(productsCollection, id);
+    productSnapshot = await getDoc(productDoc);
+  } catch (error) {
+    throw new Error(
+      `Error al eliminar el producto con ID "${id}" de Firestore.`,
+      { cause: error },
+    );
+  }
+
+  if (!productSnapshot.exists()) {
+    throw new Error(`Producto con ID "${id}" no encontrado.`);
+  }
+
+  try {
     await deleteDoc(productDoc);
   } catch (error) {
     throw new Error(
       `Error al eliminar el producto con ID "${id}" de Firestore.`,
-      {
-        cause: error,
-      },
+      { cause: error },
     );
   }
 };
