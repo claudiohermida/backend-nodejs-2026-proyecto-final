@@ -78,14 +78,27 @@ export const createProduct = async (req, res) => {
 
 export const deleteProduct = async (req, res) => {
   const { id } = req.params;
-  if (id) {
-    await deleteProductService(id);
-    res.status(200).send({
+  if (!id) {
+    return res.status(400).send({
+      message: "el id del producto es necesario",
+    });
+  }
+
+  try {
+    const deleted = await deleteProductService(id);
+    if (!deleted) {
+      return res.status(404).send({
+        message: `Producto con ID "${id}" no encontrado.`,
+      });
+    }
+
+    return res.status(200).send({
       message: `Producto ${id} eliminado`,
     });
-  } else {
-    res.status(400).send({
-      message: "el id del producto es necesario",
+  } catch (error) {
+    console.error("Error deleting product from Firestore:", error);
+    return res.status(500).send({
+      message: "Error interno al eliminar el producto.",
     });
   }
 };

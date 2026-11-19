@@ -34,11 +34,5 @@ export const createProductService = async (productData) => {
 };
 
 export const deleteProductService = async (id) => {
-  //try {
-  await deleteProductModel(id);
-  // } catch (error) {
-  //   throw new Error(`Error al eliminar el producto con ID "${id}"`, {
-  //     cause: error,
-  //   });
-  // }
+  return deleteProductModel(id);
 };

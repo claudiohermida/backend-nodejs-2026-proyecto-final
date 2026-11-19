@@ -91,11 +91,12 @@ export const deleteProductModel = async (id) => {
   }
 
   if (!productSnapshot.exists()) {
-    throw new Error(`Producto con ID "${id}" no encontrado.`);
+    return false;
   }
 
   try {
     await deleteDoc(productDoc);
+    return true;
   } catch (error) {
     throw new Error(
       `Error al eliminar el producto con ID "${id}" de Firestore.`,
