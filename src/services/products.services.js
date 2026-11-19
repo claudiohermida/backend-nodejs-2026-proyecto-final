@@ -19,21 +19,9 @@ export const getAllProductsService = async () => {
 //};
 
 export const getProductService = async (id) => {
-  //try {
   const product = await getProductModel(id);
-  if (!product) {
-    throw new Error(`Producto con ID "${id}" no encontrado.`);
-  }
   return product;
-  // } catch (error) {
-  //   throw new Error(
-  //     `Error al obtener el producto con ID "${id}" de Firestore.`,
-  //     {
-  //       cause: error,
-  //     },
-  //   );
 };
-// };
 
 export const createProductService = async (productData) => {
   //try {

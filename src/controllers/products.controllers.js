@@ -30,27 +30,28 @@ export async function getAllProducts(req, res) {
 
 export async function getProduct(req, res) {
   const { id } = req.params;
-  if (id) {
-    // try {
+  if (!id) {
+    return res.status(400).send({
+      message: "el id del producto es necesario",
+    });
+  }
+
+  try {
     const product = await getProductService(id);
-    if (product) {
-      res.send({
-        message: "Producto encontrado",
-        data: product,
-      });
-    } else {
-      res.status(404).send({
-        message: "Producto no encontrado",
+    if (!product) {
+      return res.status(404).send({
+        message: `Producto con ID "${id}" no encontrado.`,
       });
     }
-    // } catch (error) {
-    //   console.error("Error getting product from Firestore:", error);
-    //   res.status(500).send({
-    //     message: "Error interno",
-    //   });
-  } else {
-    res.status(400).send({
-      message: "el id del producto es necesario",
+
+    return res.send({
+      message: "Producto encontrado",
+      data: product,
+    });
+  } catch (error) {
+    console.error("Error getting product from Firestore:", error);
+    return res.status(500).send({
+      message: "Error interno al obtener el producto.",
     });
   }
 }
